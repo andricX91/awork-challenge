@@ -1,4 +1,4 @@
-@if (users.length) {
+@if (visibleUsers.length) {
 <article class="user-list">
   <div class="grouping">
     @for (group of groups; track $index) {
@@ -6,8 +6,8 @@
     }
   </div>
 
-  @for (user of users; track $index) {
-  <app-user-item [user]="user" [allUsers]="users" />
+  @for (user of visibleUsers; track $index) {
+  <app-user-item [user]="user" [allUsers]="allUsers" />
   }
 </article>
 } @else {
