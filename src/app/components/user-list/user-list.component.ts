@@ -1,7 +1,8 @@
-import { Component, HostListener, inject, Input } from "@angular/core";
+import { Component, HostListener, inject, input, Input } from "@angular/core";
 import { UserItemComponent } from "../user-item/user-item.component";
 import { GroupingCriteria, User } from "../../models/user.model";
 import { UsersService } from "../../services/users.service";
+import { HttpErrorResponse } from "@angular/common/http";
 import { TitleCasePipe } from "@angular/common";
 import { take } from "rxjs";
 
@@ -19,6 +20,7 @@ export class UserListComponent {
     this.visibleUsers = value.slice(0, this.batch);
   }
 
+  usersError = input.required<HttpErrorResponse | undefined>();
   usersService = inject(UsersService);
 
   allUsers: User[] = [];
@@ -27,20 +29,6 @@ export class UserListComponent {
 
   groups = Object.values(GroupingCriteria);
   groupingCriteria: GroupingCriteria = GroupingCriteria.Alphabetically;
-
-  groupUsers(criteria: GroupingCriteria): void {
-    this.usersService
-      .groupUsers(this.users, criteria)
-      .pipe(take(1)) // Take only the first emission
-      .subscribe({
-        next: (groupedUsers) => {
-          this.visibleUsers = groupedUsers.slice(0, this.batch); // Update the users with grouped data
-        },
-        error: (err) => {
-          console.error("Error grouping users:", err); // Handle any errors
-        },
-      });
-  }
 
   @HostListener("window:scroll", [])
   onScroll(): void {
@@ -61,5 +49,19 @@ export class UserListComponent {
       0,
       (loadedBatches + 1) * this.batch
     );
+  }
+
+  groupUsers(criteria: GroupingCriteria): void {
+    this.usersService
+      .groupUsers(this.users, criteria)
+      .pipe(take(1)) // Take only the first emission
+      .subscribe({
+        next: (groupedUsers) => {
+          this.visibleUsers = groupedUsers.slice(0, this.batch); // Update the users with grouped data
+        },
+        error: (err) => {
+          console.error("Error grouping users:", err); // Handle any errors
+        },
+      });
   }
 }

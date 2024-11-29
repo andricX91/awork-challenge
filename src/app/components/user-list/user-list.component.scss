@@ -1,4 +1,5 @@
 @import "ease/ease-import.scss";
+@import "../../../animations.scss";
 
 :host {
   .user-list {
@@ -22,6 +23,18 @@
         cursor: pointer;
         margin: 5px 10px;
       }
+    }
+  }
+
+  .error-img {
+    display: flex;
+    justify-content: center;
+
+    img {
+      margin: 0 auto;
+      width: 60%;
+      max-width: 600px;
+      min-width: 300px;
     }
   }
 }

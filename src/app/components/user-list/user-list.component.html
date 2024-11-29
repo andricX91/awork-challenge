@@ -10,8 +10,15 @@
   <app-user-item [user]="user" [allUsers]="allUsers" />
   }
 </article>
-} @else {
-<article class="user-list">
+} @else if (!usersError) {
+<article class="user-list fade-in">
   <p>Loading…</p>
 </article>
+} @else if (usersError()?.error) {
+<article class="user-list fade-in">
+  {{ usersError()?.error.error }}
+</article>
+<div class="error-img">
+  <img class="scale-up-center" src="assets/error-429.png" />
+</div>
 }

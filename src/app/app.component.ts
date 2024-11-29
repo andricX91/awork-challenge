@@ -1,5 +1,6 @@
 import { UserListComponent } from "./components/user-list/user-list.component";
 import { Component, OnInit, inject } from "@angular/core";
+import { HttpErrorResponse } from "@angular/common/http";
 import { UsersService } from "./services/users.service";
 import { User } from "./models/user.model";
 
@@ -14,10 +15,20 @@ export class AppComponent implements OnInit {
   usersService = inject(UsersService);
 
   users: User[] = [];
+  usersError: HttpErrorResponse | undefined;
 
   ngOnInit(): void {
     this.usersService.getUsers().subscribe((users) => {
       this.users = users;
+    });
+
+    this.usersService.getUsers().subscribe({
+      next: (users: User[]) => {
+        this.users = users;
+      },
+      error: (error) => {
+        this.usersError = error;
+      },
     });
   }
 }
