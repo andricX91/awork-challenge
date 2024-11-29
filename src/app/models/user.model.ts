@@ -1,26 +1,33 @@
-import { UserResult } from './api-result.model'
+import { UserResult } from "./api-result.model";
 
 interface LoginInfo extends Object {
-  uuid: string
-  username: string
-  password: string
-  salt: string
-  md5: string
-  sha1: string
-  sha256: string
+  uuid: string;
+  username: string;
+  password: string;
+  salt: string;
+  md5: string;
+  sha1: string;
+  sha256: string;
+}
+
+export enum GroupingCriteria {
+  Alphabetically = "alphabetically",
+  Age = "age",
+  Nationality = "nationality",
 }
 
 export class User {
-  firstname?: string
-  lastname?: string
-  email?: string
-  phone?: string
-  image?: string
-  nat?: string
-  login?: LoginInfo
+  firstname?: string;
+  lastname?: string;
+  email?: string;
+  phone?: string;
+  image?: string;
+  nat?: string;
+  age?: number;
+  login?: LoginInfo;
 
   constructor(data: Partial<User> = {}) {
-    Object.assign(this, data)
+    Object.assign(this, data);
   }
 
   /**
@@ -28,7 +35,7 @@ export class User {
    * Note: Do not remove the query string.
    */
   get imageSrc(): string {
-    return `${this.image}?id=${this.login?.uuid}`
+    return `${this.image}?id=${this.login?.uuid}`;
   }
 
   /**
@@ -37,14 +44,18 @@ export class User {
    * @returns {User[]}
    */
   static mapFromUserResult(userResults: UserResult[]): User[] {
-    return userResults.map(user => new User({
-      firstname: user.name.first,
-      lastname: user.name.last,
-      email: user.email,
-      phone: user.phone,
-      image: user.picture.medium,
-      nat: user.nat,
-      login: user.login
-    }))
+    return userResults.map(
+      (user) =>
+        new User({
+          firstname: user.name.first,
+          lastname: user.name.last,
+          email: user.email,
+          phone: user.phone,
+          image: user.picture.medium,
+          nat: user.nat,
+          login: user.login,
+          age: user.dob.age,
+        })
+    );
   }
 }

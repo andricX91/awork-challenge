@@ -1,11 +1,17 @@
-@if (users().length) {
-  <article class="user-list">
-    @for (user of users(); track $index) {
-      <app-user-item [user]="user" [allUsers]="users()" />
+@if (users.length) {
+<article class="user-list">
+  <div class="grouping">
+    @for (group of groups; track $index) {
+    <div class="group" (click)="groupUsers(group)">{{ group | titlecase }}</div>
     }
-  </article>
+  </div>
+
+  @for (user of users; track $index) {
+  <app-user-item [user]="user" [allUsers]="users" />
+  }
+</article>
 } @else {
-  <article class="user-list">
-    <p>Loading…</p>
-  </article>
+<article class="user-list">
+  <p>Loading…</p>
+</article>
 }
