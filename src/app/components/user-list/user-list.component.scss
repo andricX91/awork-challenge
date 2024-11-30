@@ -12,16 +12,22 @@
     max-width: 60%;
     padding: 12px;
 
-    .grouping {
+    header {
       display: flex;
+      justify-content: space-between;
+      padding: 0px 10px 12px;
+      border-bottom: 1px solid var(--color-fog);
 
-      .group {
-        background: #e2d8fe;
-        padding: 5px 8px;
-        border: 3px solid #dbcffc;
-        border-radius: 8px;
-        cursor: pointer;
-        margin: 5px 10px;
+      input,
+      select {
+        background-color: #e3d8fd;
+        border: 1px solid #c9b5f8;
+        border-radius: 15px;
+        padding: 5px 10px;
+      }
+
+      input::placeholder {
+        color: black;
       }
     }
   }
@@ -36,5 +42,12 @@
       max-width: 600px;
       min-width: 300px;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  input,
+  select {
+    max-width: 114px;
   }
 }

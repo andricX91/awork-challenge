@@ -1,16 +1,29 @@
 @if (visibleUsers.length) {
-<article class="user-list">
-  <div class="grouping">
-    @for (group of groups; track $index) {
-    <div class="group" (click)="groupUsers(group)">{{ group | titlecase }}</div>
-    }
-  </div>
+<article class="user-list fade-in">
+  <header>
+    <div>
+      <input
+        #search
+        type="text"
+        placeholder="Search anything..."
+        (input)="processUsers('search', search.value)"
+      />
+    </div>
+    <div>
+      <select #dropdown (change)="processUsers('group', dropdown.value)">
+        <option value="" selected>Group users</option>
+        @for (group of groups; track $index) {
+        <option [value]="group">{{ group | titlecase }}</option>
+        }
+      </select>
+    </div>
+  </header>
 
   @for (user of visibleUsers; track $index) {
   <app-user-item [user]="user" [allUsers]="allUsers" />
   }
 </article>
-} @else if (!usersError) {
+} @else if (!visibleUsers.length && !usersError()?.error) {
 <article class="user-list fade-in">
   <p>Loading…</p>
 </article>

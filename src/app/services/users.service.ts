@@ -21,22 +21,27 @@ export class UsersService {
       .get<ApiResult>(`${this.apiUrl}?results=500&seed=awork&page=${page}`)
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    const largeBatch = this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=4500&seed=awork&page=${page}`)
-      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+    // const largeBatch = this.httpClient
+    //   .get<ApiResult>(`${this.apiUrl}?results=4500&seed=awork&page=${page}`)
+    //   .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    return concat(smallBatch, largeBatch);
+    return concat(smallBatch);
   }
 
   /**
-   * Groups users based on the given criteria using a Web Worker.
-   * @param {string} criteria - The criteria for grouping users.
+   * Groups & Search users based on the given criteria using a Web Worker.
+   * @param {GroupingCriteria} group - The criteria for grouping users.
+   * * @param {string} search - The criteria for searching users.
    * @returns {Observable<User[]>} - An observable that emits grouped users.
    */
-  groupUsers(users: User[], criteria: GroupingCriteria): Observable<User[]> {
+  processUsers(
+    users: User[],
+    group?: GroupingCriteria,
+    search?: string
+  ): Observable<User[]> {
     return new Observable((observer) => {
       const worker = new Worker(
-        new URL("../components/user-list/user-grouping.worker", import.meta.url)
+        new URL("../components/user-list/user.worker", import.meta.url)
       );
 
       worker.onmessage = ({ data }) => {
@@ -51,7 +56,7 @@ export class UsersService {
       worker.onerror = (err) => observer.error(err);
 
       const plainUsers = users.map((user) => ({ ...user }));
-      worker.postMessage({ users: plainUsers, criteria });
+      worker.postMessage({ users: plainUsers, group, search });
     });
   }
 }

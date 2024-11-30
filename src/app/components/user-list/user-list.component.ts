@@ -26,9 +26,11 @@ export class UserListComponent {
   allUsers: User[] = [];
   visibleUsers: User[] = [];
   batch: number = 200;
+  search: string | undefined;
 
   groups = Object.values(GroupingCriteria);
-  groupingCriteria: GroupingCriteria = GroupingCriteria.Alphabetically;
+  groupingCriteria: GroupingCriteria | undefined;
+  group: GroupingCriteria | undefined;
 
   @HostListener("window:scroll", [])
   onScroll(): void {
@@ -51,9 +53,19 @@ export class UserListComponent {
     );
   }
 
-  groupUsers(criteria: GroupingCriteria): void {
+  processUsers(type: "group" | "search", input: string): void {
+    switch (type) {
+      case "search":
+        this.search = input;
+        break;
+      case "group":
+        const criteria: GroupingCriteria = input as GroupingCriteria;
+        this.group = criteria;
+        break;
+    }
+
     this.usersService
-      .groupUsers(this.users, criteria)
+      .processUsers(this.allUsers, this.group, this.search)
       .pipe(take(1)) // Take only the first emission
       .subscribe({
         next: (groupedUsers) => {
