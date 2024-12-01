@@ -39,9 +39,12 @@
   }
 </article>
 } @else if (!visibleUsers.length && !usersError()?.error) {
-<article class="user-list fade-in">
-  <p>Loading…</p>
-</article>
+<div class="loader-box">
+  <div>
+    <p>Loading…</p>
+    <div class="loader"></div>
+  </div>
+</div>
 } @else if (usersError()?.error) {
 <article class="user-list fade-in">
   {{ usersError()?.error.error }}
