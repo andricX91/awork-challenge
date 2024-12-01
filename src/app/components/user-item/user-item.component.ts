@@ -1,13 +1,19 @@
-import { Component, Input, input } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  input,
+} from "@angular/core";
+import { SafeURLPipe } from "../../pipes/safe-url.pipe";
 import { User } from "../../models/user.model";
 import { DatePipe } from "@angular/common";
-import { SafeURLPipe } from "../../pipes/safe-url.pipe";
 
 @Component({
   selector: "app-user-item",
   templateUrl: "./user-item.component.html",
   styleUrl: "./user-item.component.scss",
   imports: [DatePipe, SafeURLPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class UserItemComponent {

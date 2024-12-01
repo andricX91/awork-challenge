@@ -1,5 +1,5 @@
 <div class="user-item" [class.active]="expandUser">
-  <img class="user-item__image" [src]="user().image" />
+  <img class="user-item__image" [src]="user().image" loading="lazy" />
   <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
   <p class="user-item__email">{{ user().email }}</p>
   <p class="user-item__phone">{{ user().phone }}</p>

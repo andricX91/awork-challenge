@@ -67,9 +67,10 @@ addEventListener("message", ({ data }) => {
     const query = search.toLowerCase();
 
     filteredUsers = filteredUsers.filter((user: User) => {
+      const fullName = `${user.firstname} ${user.lastname}`.toLowerCase();
+
       return (
-        user.firstname?.toLowerCase().includes(query) ||
-        user.lastname?.toLowerCase().includes(query) ||
+        fullName.includes(query) ||
         user.phone?.toLowerCase().includes(query) ||
         user.email?.toLowerCase().includes(query) ||
         user.nat?.toLowerCase().includes(query)

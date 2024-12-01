@@ -1,4 +1,11 @@
-import { Component, HostListener, inject, input, Input } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  inject,
+  input,
+  Input,
+} from "@angular/core";
 import { UserItemComponent } from "../user-item/user-item.component";
 import { GroupingCriteria, User } from "../../models/user.model";
 import { UsersService } from "../../services/users.service";
@@ -11,6 +18,7 @@ import { take } from "rxjs";
   templateUrl: "./user-list.component.html",
   styleUrl: "./user-list.component.scss",
   imports: [UserItemComponent, TitleCasePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class UserListComponent {
@@ -27,7 +35,7 @@ export class UserListComponent {
   visibleUsers: User[] = [];
   selectedUser: User | undefined;
 
-  batch: number = 200;
+  batch: number = 100;
   search: string | undefined;
 
   groups = Object.values(GroupingCriteria);

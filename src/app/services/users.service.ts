@@ -17,15 +17,27 @@ export class UsersService {
    * @returns {Observable<User[]>}
    */
   getUsers(page = 1): Observable<User[]> {
-    const smallBatch = this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=200&seed=awork&page=${page}`)
+    const batch1 = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=100&seed=awork&page=${page}`)
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    // const largeBatch = this.httpClient
-    //   .get<ApiResult>(`${this.apiUrl}?results=4800&seed=awork&page=${page}`)
-    //   .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+    const batch2 = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=400&seed=awork&page=${page}`)
+      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    return concat(smallBatch);
+    const batch3 = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=500&seed=awork&page=${page}`)
+      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+
+    const batch4 = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=2000&seed=awork&page=${page}`)
+      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+
+    const batch5 = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=2000&seed=awork&page=${page}`)
+      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+
+    return concat(batch1, batch2, batch3, batch4, batch5);
   }
 
   /**
