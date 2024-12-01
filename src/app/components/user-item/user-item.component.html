@@ -7,7 +7,7 @@
 </div>
 
 @if (expandUser) {
-<div class="active user-details tracking-in-contract">
+<div class="active user-details fade-in">
   <div class="user-info">
     <h3>Registered: {{ user().restarted | date : "dd MMMM yyyy, HH:mm" }}</h3>
     <p><strong>Gender:</strong> {{ user().gender }}</p>
@@ -18,7 +18,6 @@
   </div>
   <div class="map fade-in-slow">
     <iframe
-      loading="lazy"
       [src]="
         'https://www.google.com/maps?q=' +
           user().lat +
