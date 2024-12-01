@@ -33,6 +33,41 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+# User List Application
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+A high-performance, interactive application that displays and manages a large dataset of users. The app is designed to handle up to 5000 users with seamless performance and an exceptional user experience.
+
+---
+
+## Features
+
+### 1. Dynamic User Grouping
+- Group users by:
+  - Alphabetical order
+  - Age
+  - Nationality
+- Uses **Web Workers** to handle grouping logic for smooth UI performance.
+
+### 2. Infinite Scrolling
+- Displays 200 users at a time, loading additional users as you scroll.
+- Optimized for both desktop and mobile devices.
+
+### 3. Interactive User Details
+- Click on a user to:
+  - Expand the card and view additional details like gender, city, and location coordinates.
+  - See an embedded Google Map showing the user's location.
+- Collapse the card by clicking again or selecting another user.
+
+### 4. Search Functionality
+- Search for users dynamically by name, email, or other attributes.
+- Powered by **Web Workers** for fast, non-blocking filtering.
+
+### 5. Enhanced Loading and Error Handling
+- Custom loader animation while fetching user data.
+- Graceful handling of API rate limit errors (status 429) with clear error messages.
+
+### 6. Optimized Rendering
+- Lazy loading for images.
+- Batch rendering of visible elements.
+- Smooth animations for a responsive UI.
+
