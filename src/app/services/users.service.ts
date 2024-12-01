@@ -1,7 +1,7 @@
 import { User, GroupingCriteria } from "../models/user.model";
 import { ApiResult } from "../models/api-result.model";
 import { HttpClient } from "@angular/common/http";
-import { Observable, concat, map } from "rxjs";
+import { Observable, concat, map, reduce, scan } from "rxjs";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -30,14 +30,27 @@ export class UsersService {
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
     const batch4 = this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=2000&seed=awork&page=${page}`)
+      .get<ApiResult>(`${this.apiUrl}?results=1000&seed=awork&page=${page}`)
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
     const batch5 = this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=2000&seed=awork&page=${page}`)
+      .get<ApiResult>(`${this.apiUrl}?results=1000&seed=awork&page=${page}`)
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    return concat(batch1, batch2, batch3, batch4, batch5);
+    const batch6 = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=1000&seed=awork&page=${page}`)
+      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+
+    const batch7 = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=1000&seed=awork&page=${page}`)
+      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+
+    return concat(batch1, batch2, batch3, batch4, batch5, batch6, batch7).pipe(
+      scan<User[], User[]>(
+        (acc: User[], batch: User[]) => [...acc, ...batch],
+        []
+      )
+    );
   }
 
   /**

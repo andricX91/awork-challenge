@@ -1,6 +1,7 @@
 @if (visibleUsers.length) {
 <article class="user-list fade-in">
-  <header>
+  @if(allUsers.length === page){
+  <header class="fade-in">
     <div>
       <input
         #search
@@ -18,6 +19,15 @@
       </select>
     </div>
   </header>
+  } @if(allUsers.length < page) {
+  <progress id="file" [value]="allUsers.length" [max]="page">
+    {{
+      allUsers.length > 0
+        ? ((allUsers.length / page) * 100 | number : "1.0-0")
+        : 0
+    }}%
+  </progress>
+  }
 
   <header class="header-title">
     <div class="header-row__name">Name and Surname</div>
