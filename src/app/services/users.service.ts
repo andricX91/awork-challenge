@@ -18,14 +18,14 @@ export class UsersService {
    */
   getUsers(page = 1): Observable<User[]> {
     const smallBatch = this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=500&seed=awork&page=${page}`)
+      .get<ApiResult>(`${this.apiUrl}?results=200&seed=awork&page=${page}`)
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    const largeBatch = this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=4500&seed=awork&page=${page}`)
-      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+    // const largeBatch = this.httpClient
+    //   .get<ApiResult>(`${this.apiUrl}?results=4800&seed=awork&page=${page}`)
+    //   .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    return concat(smallBatch, largeBatch);
+    return concat(smallBatch);
   }
 
   /**

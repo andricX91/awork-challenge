@@ -18,10 +18,6 @@ export class AppComponent implements OnInit {
   usersError: HttpErrorResponse | undefined;
 
   ngOnInit(): void {
-    this.usersService.getUsers().subscribe((users) => {
-      this.users = users;
-    });
-
     this.usersService.getUsers().subscribe({
       next: (users: User[]) => {
         this.users = users;
