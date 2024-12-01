@@ -25,6 +25,8 @@ export class UserListComponent {
 
   allUsers: User[] = [];
   visibleUsers: User[] = [];
+  selectedUser: User | undefined;
+
   batch: number = 200;
   search: string | undefined;
 
@@ -54,6 +56,8 @@ export class UserListComponent {
   }
 
   processUsers(type: "group" | "search", input: string): void {
+    this.selectedUser = undefined;
+
     switch (type) {
       case "search":
         this.search = input;

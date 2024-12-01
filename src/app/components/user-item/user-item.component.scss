@@ -1,4 +1,5 @@
-@import 'ease/ease-import.scss';
+@import "ease/ease-import.scss";
+@import "../../../animations.scss";
 
 :host {
   .user-item {
@@ -44,6 +45,52 @@
       margin-left: 12px;
       text-align: right;
       width: 80px;
+    }
+  }
+
+  .user-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 10px 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    .user-info {
+      font-family: Arial, sans-serif;
+      color: #343a40;
+      line-height: 1.8;
+
+      h3 {
+        margin-top: 0;
+        color: var(--color-primary);
+      }
+
+      p {
+        margin: 5px 0;
+      }
+    }
+
+    .map {
+      max-width: 460px;
+      width: 100%;
+      height: 100%;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border-radius: 10px;
+        border: 1px solid var(--color-text-normal);
+      }
+    }
+  }
+
+  .active {
+    background-color: var(--color-fog);
+  }
+
+  @media (max-width: 768px) {
+    .map {
+      display: none;
     }
   }
 }

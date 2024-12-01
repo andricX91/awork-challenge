@@ -21,11 +21,11 @@ export class UsersService {
       .get<ApiResult>(`${this.apiUrl}?results=500&seed=awork&page=${page}`)
       .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    // const largeBatch = this.httpClient
-    //   .get<ApiResult>(`${this.apiUrl}?results=4500&seed=awork&page=${page}`)
-    //   .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
+    const largeBatch = this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=4500&seed=awork&page=${page}`)
+      .pipe(map((apiResult) => User.mapFromUserResult(apiResult.results)));
 
-    return concat(smallBatch);
+    return concat(smallBatch, largeBatch);
   }
 
   /**

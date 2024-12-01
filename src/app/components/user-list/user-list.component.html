@@ -19,8 +19,23 @@
     </div>
   </header>
 
+  <header class="header-title">
+    <div class="header-row__name">Name and Surname</div>
+    <div class="header-row__email">Email</div>
+    <div class="header-row__phone">Phone number</div>
+    <div class="header-row__nat">Nationality</div>
+  </header>
+
   @for (user of visibleUsers; track $index) {
-  <app-user-item [user]="user" [allUsers]="allUsers" />
+  <app-user-item
+    [user]="user"
+    [allUsers]="allUsers"
+    [selectedUser]="selectedUser"
+    (click)="
+      selectedUser =
+        user.login?.uuid === selectedUser?.login?.uuid ? undefined : user
+    "
+  />
   }
 </article>
 } @else if (!visibleUsers.length && !usersError()?.error) {

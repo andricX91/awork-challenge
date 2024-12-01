@@ -1,11 +1,33 @@
-<div class="user-item">
+<div class="user-item" [class.active]="expandUser">
   <img class="user-item__image" [src]="user().image" />
-
   <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
-
   <p class="user-item__email">{{ user().email }}</p>
-
   <p class="user-item__phone">{{ user().phone }}</p>
-
   <p class="user-item__nat">{{ user().nat }} ({{ nationalitiesCount }})</p>
 </div>
+
+@if (expandUser) {
+<div class="active user-details tracking-in-contract">
+  <div class="user-info">
+    <h3>Registered: {{ user().restarted | date : "dd MMMM yyyy, HH:mm" }}</h3>
+    <p><strong>Gender:</strong> {{ user().gender }}</p>
+    <p><strong>Age:</strong> {{ user().age }}</p>
+    <p><strong>City:</strong> {{ user().city }}</p>
+    <p><strong>Country:</strong> {{ user().country }}</p>
+    <p><strong>Coordinates:</strong> {{ user().lat }}, {{ user().long }}</p>
+  </div>
+  <div class="map fade-in-slow">
+    <iframe
+      [src]="
+        'https://www.google.com/maps?q=' +
+          user().lat +
+          ',' +
+          user().long +
+          '&output=embed' | safeURL
+      "
+      width="600"
+      height="400"
+    ></iframe>
+  </div>
+</div>
+}

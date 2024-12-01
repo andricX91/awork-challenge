@@ -50,7 +50,7 @@ export interface UserResult {
     age: number;
   };
   registered: {
-    date: string;
+    date: Date;
     age: number;
   };
   phone: string;

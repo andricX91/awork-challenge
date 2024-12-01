@@ -23,8 +23,15 @@ export class User {
   phone?: string;
   image?: string;
   nat?: string;
-  age?: number;
   login?: LoginInfo;
+
+  gender?: string;
+  age?: number;
+  city?: string;
+  country?: string;
+  lat?: string;
+  long?: string;
+  restarted?: Date;
 
   constructor(data: Partial<User> = {}) {
     Object.assign(this, data);
@@ -54,7 +61,14 @@ export class User {
           image: user.picture.medium,
           nat: user.nat,
           login: user.login,
+
+          gender: user.gender,
           age: user.dob.age,
+          city: user.location.city,
+          country: user.location.country,
+          lat: user.location.coordinates.latitude,
+          long: user.location.coordinates.longitude,
+          restarted: user.registered.date,
         })
     );
   }

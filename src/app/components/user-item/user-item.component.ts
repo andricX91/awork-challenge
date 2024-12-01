@@ -1,15 +1,24 @@
-import { Component, input } from "@angular/core";
+import { Component, Input, input } from "@angular/core";
 import { User } from "../../models/user.model";
+import { DatePipe } from "@angular/common";
+import { SafeURLPipe } from "../../pipes/safe-url.pipe";
 
 @Component({
   selector: "app-user-item",
   templateUrl: "./user-item.component.html",
   styleUrl: "./user-item.component.scss",
+  imports: [DatePipe, SafeURLPipe],
   standalone: true,
 })
 export class UserItemComponent {
   user = input.required<User>();
   allUsers = input.required<User[]>();
+  expandUser: boolean = false;
+
+  @Input()
+  set selectedUser(value: User | undefined) {
+    this.expandUser = this.user().login?.uuid === value?.login?.uuid;
+  }
 
   /**
    * Get the count of users with same nationality
